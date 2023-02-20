@@ -4,6 +4,14 @@
 
   .form {
     width: 100%;
+
+		textarea {
+			min-height: 150px;
+		}
+
+		button:nth-child(3) {
+			margin-left: 10px;
+		}
   }
 
   .w-full {
@@ -20,8 +28,6 @@
   }
 
 	.ham-or-spam-banner {
-		border: 1px solid rgba(255, 0, 0, 0.356);
-		background-color: rgba(255, 0, 0, 0.034);
 		margin: 20px 0;
 		padding: 5px;
 		position: relative;
@@ -37,8 +43,25 @@
 				position: absolute;
 				margin: 0;
 				font-size: 1.5em;
-				color: red;
 			}
+		}
+	}
+
+	.ham-banner {
+		border: 1px solid rgba(0, 128, 0, 0.356);
+		background-color: rgba(0, 128, 0, 0.034);
+
+		p {
+			color: green;
+		}
+	}
+
+	.spam-banner {
+		border: 1px solid rgba(255, 0, 0, 0.356);
+		background-color: rgba(255, 0, 0, 0.034);
+
+		p {
+			color: red;
 		}
 	}
 
@@ -48,5 +71,14 @@
 
 	.green {
 		color: green;
+	}
+
+	.data-point-table {
+		max-height: 300px;
+		overflow-y: scroll;
+	}
+
+	.model-info {
+		margin-bottom: 20px;
 	}
 }

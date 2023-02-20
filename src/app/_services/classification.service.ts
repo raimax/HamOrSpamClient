@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.development';
 import { ClassificationRequest } from '../_models/ClassificationRequest';
 import { ClassificationResponse } from '../_models/ClassificationResponse';
-import { Dataset } from '../_models/Dataset';
+import { Model } from '../_models/Model';
 
 @Injectable({
   providedIn: 'root',
@@ -18,9 +18,7 @@ export class ClassificationService {
     );
   }
 
-  getDataset() {
-    return this.http.get<Dataset>(
-      environment.apiUrl + 'classification/dataset'
-    );
+  getModel() {
+    return this.http.get<Model>(environment.apiUrl + 'classification/model');
   }
 }

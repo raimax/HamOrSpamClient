@@ -1,4 +1,4 @@
-export interface Dataset {
+export interface Model {
   id: number;
   hamCount: number;
   spamCount: number;

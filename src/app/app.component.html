@@ -1,5 +1,20 @@
 <div class="main">
-	<h1>Naive Bayes email classifier</h1>
+  <h1>Naive Bayes email classifier</h1>
+  <mat-chip-listbox
+		class="model-info"
+    *ngIf="model"
+    [selectable]="false"
+    aria-label="Fish selection"
+  >
+    <mat-chip-option>ham count: {{ model.hamCount }}</mat-chip-option>
+    <mat-chip-option>spam count: {{ model.spamCount }}</mat-chip-option>
+    <mat-chip-option
+      >prior ham probability: {{ model.priorHamProbability }}</mat-chip-option
+    >
+    <mat-chip-option
+      >prior spam probability: {{ model.priorSpamProbability }}</mat-chip-option
+    >
+  </mat-chip-listbox>
   <form
     class="form"
     [formGroup]="classificationRequestForm"
@@ -16,26 +31,82 @@
     >
       Classify
     </button>
+    <button (click)="classificationRequestForm.reset()" mat-stroked-button>
+      Clear input
+    </button>
   </form>
 
-  <div class="ham-or-spam-banner">
-    <div class="banner-item" *ngIf="isHam()">
-      <mat-icon
-        aria-hidden="false"
-        aria-label="Thumbs up icon"
-        fontIcon="thumb_up_alt"
-        class="green"
-      ></mat-icon>
-      <p>Email is not spam</p>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+
+  <div *ngIf="!isLoading && classification">
+    <div
+      class="ham-or-spam-banner"
+      [ngClass]="{ 'ham-banner': isHam(), 'spam-banner': !isHam() }"
+    >
+      <div class="banner-item" *ngIf="isHam()">
+        <mat-icon
+          aria-hidden="false"
+          aria-label="Thumbs up icon"
+          fontIcon="thumb_up_alt"
+          class="green"
+        ></mat-icon>
+        <p>Email is not spam</p>
+      </div>
+      <div class="banner-item" *ngIf="!isHam()">
+        <mat-icon
+          aria-hidden="false"
+          aria-label="Thumbs down icon"
+          fontIcon="thumb_down_alt"
+          class="red"
+        ></mat-icon>
+        <p>Email is spam</p>
+      </div>
     </div>
-    <div class="banner-item" *ngIf="!isHam()">
-      <mat-icon
-        aria-hidden="false"
-        aria-label="Thumbs down icon"
-        fontIcon="thumb_down_alt"
-        class="red"
-      ></mat-icon>
-      <p>Email is spam</p>
+
+    <mat-chip-listbox>
+      <mat-chip-option [selected]="isHam()" color="accent"
+        >Probability for ham:
+        {{ classification.probabilityForHam }}</mat-chip-option
+      >
+      <mat-chip-option [selected]="!isHam()" color="warn">
+        Probability for spam:
+        {{ classification.probabilityForSpam }}</mat-chip-option
+      >
+    </mat-chip-listbox>
+
+    <div class="data-point-table">
+      <table
+        mat-table
+        [dataSource]="classification.dataPoints"
+        class="mat-elevation-z8"
+      >
+        <ng-container matColumnDef="word">
+          <th mat-header-cell *matHeaderCellDef>Word</th>
+          <td mat-cell *matCellDef="let element">{{ element.word }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="count">
+          <th mat-header-cell *matHeaderCellDef>Count</th>
+          <td mat-cell *matCellDef="let element">{{ element.count }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="hamProbability">
+          <th mat-header-cell *matHeaderCellDef>Not Spam Probability</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.hamProbability }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="spamProbability">
+          <th mat-header-cell *matHeaderCellDef>Spam Probability</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.spamProbability }}
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+      </table>
     </div>
   </div>
 </div>
