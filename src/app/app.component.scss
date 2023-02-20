@@ -1,0 +1,52 @@
+.main {
+  width: 50%;
+  margin: 20px auto;
+
+  .form {
+    width: 100%;
+  }
+
+  .w-full {
+    width: 100%;
+  }
+
+	.mat-icon {
+		width: auto;
+		height: auto;
+	}
+
+  .material-icons {
+    font-size: 5em;
+  }
+
+	.ham-or-spam-banner {
+		border: 1px solid rgba(255, 0, 0, 0.356);
+		background-color: rgba(255, 0, 0, 0.034);
+		margin: 20px 0;
+		padding: 5px;
+		position: relative;
+
+		.banner-item {
+			display: flex;
+			align-items: center;
+
+			p {
+				top: 50%; 
+				right: 50%;
+				transform: translate(50%, -50%);
+				position: absolute;
+				margin: 0;
+				font-size: 1.5em;
+				color: red;
+			}
+		}
+	}
+
+	.red {
+		color: red;
+	}
+
+	.green {
+		color: green;
+	}
+}
