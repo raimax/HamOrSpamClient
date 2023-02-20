@@ -1,7 +1,7 @@
 <div class="main">
   <h1>Naive Bayes email classifier</h1>
   <mat-chip-listbox
-		class="model-info"
+    class="model-info"
     *ngIf="model"
     [selectable]="false"
     aria-label="Fish selection"
@@ -31,8 +31,14 @@
     >
       Classify
     </button>
-    <button (click)="classificationRequestForm.reset()" mat-stroked-button>
+    <button type="button" (click)="classificationRequestForm.reset()" mat-stroked-button>
       Clear input
+    </button>
+    <button type="button" (click)="loadMessage('normal')" mat-stroked-button>
+      Load normal
+    </button>
+    <button type="button" (click)="loadMessage('spam')" mat-stroked-button>
+      Load spam
     </button>
   </form>
 

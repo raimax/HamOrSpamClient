@@ -9,7 +9,7 @@
 			min-height: 150px;
 		}
 
-		button:nth-child(3) {
+		button:not(:nth-child(2)) {
 			margin-left: 10px;
 		}
   }

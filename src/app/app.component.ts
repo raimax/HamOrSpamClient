@@ -4,6 +4,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ClassificationResponse } from './_models/ClassificationResponse';
 import { Classification } from './_enums/Classification';
 import { Model } from './_models/Model';
+import { Message } from './data/Message';
 
 @Component({
   selector: 'app-root',
@@ -67,5 +68,14 @@ export class AppComponent {
         this.isLoading = false;
       },
     });
+  }
+
+  loadMessage(type: string) {
+    if (type === 'normal') {
+			this.classificationRequestForm.get('content')?.setValue(Message.normal.replace((/  |\r\n|\n|\r/gm),""));
+			return;
+		}
+
+		this.classificationRequestForm.get('content')?.setValue(Message.spam.replace((/  |\r\n|\n|\r/gm),""));
   }
 }
